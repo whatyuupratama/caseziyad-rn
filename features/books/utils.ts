@@ -55,6 +55,7 @@ export function mapWorkResponseToDetail(work: OpenLibraryWorkResponse): Partial<
 }
 
 export function mergeBookDetail(base: BookSummary | null | undefined, detail: Partial<BookDetail>): BookDetail {
+  const baseDetail = base as Partial<BookDetail> | null | undefined;
   return {
     id: detail.id ?? base?.id ?? 'unknown',
     title: detail.title ?? base?.title ?? 'Tanpa Judul',
@@ -62,7 +63,7 @@ export function mergeBookDetail(base: BookSummary | null | undefined, detail: Pa
     coverId: detail.coverId ?? base?.coverId,
     firstPublishYear: detail.firstPublishYear ?? base?.firstPublishYear,
     subjectTags: detail.subjectTags ?? base?.subjectTags ?? [],
-    description: detail.description ?? base?.description,
-    excerpt: detail.excerpt ?? base?.excerpt,
+    description: detail.description ?? baseDetail?.description,
+    excerpt: detail.excerpt ?? baseDetail?.excerpt,
   };
 }
